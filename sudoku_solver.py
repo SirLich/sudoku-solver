@@ -8,6 +8,7 @@ import pprint
 # Generate puzzles: https://qqwing.com/generate.html, use "compact" format.
 
 #Some sample puzzles to solve:
+
 p1 = '''..1...7.8
         ...5.....
         .6...35..
@@ -277,17 +278,17 @@ def solve(board, max_iterations, iter_print):
                 if(is_valid_board(child)):
                     boards.put((rate_board(child), child, iterations))
 
-#Global to call the solver :)
-pp = pprint.PrettyPrinter(indent=4)
+if __name__ == "__main__":
+    pp = pprint.PrettyPrinter(indent=4)
 
-print("SOLVING p1")
-pp.pprint(solve(convert_to_board(p1), 50000, 500))
+    print("SOLVING p1")
+    pp.pprint(solve(convert_to_board(p1), 50000, 500))
 
-print("SOLVING p2")
-pp.pprint(solve(convert_to_board(p2), 50000, 500))
+    print("SOLVING p2")
+    pp.pprint(solve(convert_to_board(p2), 50000, 500))
 
-print("SOLVING p3")
-pp.pprint(solve(convert_to_board(p3), 50000, 500))
+    print("SOLVING p3")
+    pp.pprint(solve(convert_to_board(p3), 50000, 500))
 
 
 
