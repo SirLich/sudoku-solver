@@ -39,7 +39,6 @@ p3 = '''...3..51.
         8.9..6...
         3...5.6..'''
 
-
 def convert_to_board(s):
     """
     Converts a properly formated string into the board format.
@@ -163,7 +162,7 @@ def num_smallest_space(b):
     loc = find_smallest_space(b)
     return str(len(b[loc[0]][loc[1]]))
 
-def make_children(b):
+def make_children(b, v):
     """
     Creates children of a board by creating duplicates of the board with a
     small change.
@@ -185,7 +184,10 @@ def make_children(b):
     for mark in b[loc[0]][loc[1]]:
         child = copy.deepcopy(b)
         child[loc[0]][loc[1]] = [mark]
-        children.append(child)
+        if str(child) not in v:
+            children.append(child)
+        else:
+            print("Found child in visited")
     return children
 
 def is_solved(b):
@@ -230,7 +232,7 @@ def rate_board(b):
             if(len(space) == 1):
                 filled += 1
 
-    return - (filled * 100 + int(num_smallest_space(b)))
+    return - (filled + int(num_smallest_space(b))/100)
 
 
 def solve(board, max_iterations, iter_print):
@@ -242,6 +244,10 @@ def solve(board, max_iterations, iter_print):
     :param iter_print: int, how often the printer should run.
     :return: solved board, or partially solved board (fallback if max-iterations are reached)
     """
+
+    #Initialize list of visited nodes
+    visited = set()
+
     #Seed the boards with the starting board
     boards = PriorityQueue()
     boards.put((rate_board(board), board, 0))
@@ -273,10 +279,11 @@ def solve(board, max_iterations, iter_print):
 
         #Only make new children if the board is valid
         if(is_valid_board):
-            children = make_children(copy.deepcopy(b))
+            children = make_children(copy.deepcopy(b), visited)
             for child in children:
                 if(is_valid_board(child)):
                     boards.put((rate_board(child), child, iterations))
+                    visited.add(str(child))
 
 if __name__ == "__main__":
     pp = pprint.PrettyPrinter(indent=4)
