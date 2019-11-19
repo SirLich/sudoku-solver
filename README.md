@@ -6,4 +6,4 @@ You can run like `python3 sudoku_solver.py` or `./sudoku_solver.py`, if you mark
 
 The script will automatically solve three puzzles, marked `easy` `medium` and `hard`. Additional puzzles can be created using this tool: https://qqwing.com/generate.html (use the compact format).
 
-The solver uses heuristic-search using a very depth-first-ish heuristic to brute force solutions.
+The solver uses A*-search using a very depth-first-ish heuristic to brute force solutions.
